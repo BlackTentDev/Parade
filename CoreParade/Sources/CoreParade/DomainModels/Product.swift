@@ -13,4 +13,12 @@ public struct Product: Codable, Equatable {
     public let price: Double
     public let description: String
     public let imageUrl: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+        case price
+        case description
+        case imageUrl = "image_url"
+    }
 }
