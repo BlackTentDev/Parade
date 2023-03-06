@@ -83,6 +83,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		B67332FD29B6395500FD8234 /* ProductList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ProductList;
+			sourceTree = "<group>";
+		};
+		B67332FF29B6397E00FD8234 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B67332FD29B6395500FD8234 /* ProductList */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
