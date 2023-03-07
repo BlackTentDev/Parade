@@ -94,7 +94,16 @@ class ProductsListViewModelTests: XCTestCase {
 }
 
 private class FetchProductServiceMock: FetchProductService {
-    var delay: Double = 0.0
+    
+    private let products: [Product]
+    var delay: Double = 0.0    
+    var action: Action
+    
+    init(products: [Product], action: Action = .success) {
+        self.products = products
+        self.action = action
+    }
+    
     func fetch(skipCache: Bool, completion: @escaping (FetchProductService.Result) -> Void) {
         var result: FetchProductService.Result
         
@@ -116,14 +125,6 @@ private class FetchProductServiceMock: FetchProductService {
             completion(result)
         }
         
-    }
-    
-    private let products: [Product]
-    var action: Action
-    
-    init(products: [Product], action: Action = .success) {
-        self.products = products
-        self.action = action
     }
     
     enum Action {

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  RemoteProductsService.swift
 //  
 //
 //  Created by Łukasz Szymczuk on 06/03/2023.
@@ -40,18 +40,21 @@ public class RemoteProductsService: FetchProductService {
         //Check if we should use cache and return if response is present for request.
         if skipCache == false, let products = returnCache(for: request) {
             completion(.success(products))
-            debugPrint("Returning Cached Verison")
             return
         }
         
         session.dataTaskPublisher(for: request)
             .timeout(.seconds(timeoutInSeconds), scheduler: DispatchQueue.main, options: nil)
-            .sink(receiveCompletion: { subscriberCompletion in                
+            .sink(receiveCompletion: { [weak self] subscriberCompletion in
                 switch subscriberCompletion {
                     case .finished:
                         break
                     case let .failure(error):
+                    if let products = self?.returnCache(for: request) {
+                        completion(.success(products))
+                    } else {
                         completion(.failure(error))
+                    }
                 }
                 
             }, receiveValue: { [weak self] output in
@@ -62,7 +65,11 @@ public class RemoteProductsService: FetchProductService {
                     //Cache response
                     self?.storeResponse(output: output, request: request)
                 } catch {
-                    completion(.failure(error))
+                    if let products = self?.returnCache(for: request) {
+                        completion(.success(products))
+                    } else {
+                        completion(.failure(error))
+                    }
                 }
             })
             .store(in: &subscribers)
@@ -86,7 +93,9 @@ extension RemoteProductsService {
         }
         
         do {
-            return try Self.parseProductsResponse(data: cachedResponse.data)
+            let cached = try Self.parseProductsResponse(data: cachedResponse.data)
+            debugPrint("Returning Cached Version")
+            return cached
         } catch {
             //Remove Cache with corrupted data and continue
             cache.removeCachedResponse(for: request)

@@ -10,13 +10,13 @@ import PresentationParade
 import CoreParade
 
 class RemoteProductsServiceTests: XCTestCase {
+    
     func testOnInit_CreateService() throws {
         let sut = makeSUT()
         
         XCTAssertNotNil(sut)
     }
 
-    
     func testFetch_Timeout() {
         let sut = makeSUT()
         let expectation = self.expectation(description: "Fetch should complete within timeout with success or error")
@@ -121,6 +121,40 @@ class RemoteProductsServiceTests: XCTestCase {
         
         waitForExpectations(timeout: TimeInterval(sut.timeoutInSeconds), handler: nil)
     }
+    
+    /*
+     We could test it e.g. without network connection since it its real impl. not a mock.
+     */
+    
+//    func testCache_ReturnCacheWhenFailure() {
+//        let sut = makeSUT()
+//        let expectation = self.expectation(description: "Fetch should complete within timeout with cached version on failure even if skipped.")
+//
+//        let cache = sut.cache
+//        cache.removeAllCachedResponses()
+//
+//        let url = sut.productEndpoint
+//        let request = URLRequest(url: url)
+//        let testProducts = [Product.mock(index: 0)]
+//        let cachedResponse = mockCachedResponse(with: testProducts, request: request)
+//
+//        cache.storeCachedResponse(cachedResponse, for: request)
+//
+//        sut.fetch(skipCache: true) { result in
+//            switch result {
+//                case .success(let products):
+//
+//                XCTAssertEqual(products, testProducts)
+//
+//                expectation.fulfill()
+//
+//                case .failure(let error):
+//                    XCTFail("Fetch failed with error: \(error.localizedDescription)")
+//            }
+//        }
+//
+//        waitForExpectations(timeout: TimeInterval(sut.timeoutInSeconds), handler: nil)
+//    }
 
     
     private func makeSUT() -> RemoteProductsService {
