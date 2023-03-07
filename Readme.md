@@ -1,7 +1,7 @@
 # Parde
 Tech Assignment created with SwiftUi for iOS 14+.
 
-##Arch
+## Arch
 
 Clean architecture with 3 layers
 
@@ -17,6 +17,6 @@ Clean architecture with 3 layers
 - Views
 - External Dependencies
 
-##Tests 
+## Tests 
 
 Presentation layer only.
