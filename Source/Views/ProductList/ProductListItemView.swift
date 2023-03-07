@@ -11,6 +11,7 @@ import CoreParade
 
 struct ProductListItemView: View {
     let viewModel: ProductItemViewModel
+    let imageWidth: CGFloat = 70
     
     init(product: Product) {
         self.viewModel = ProductItemViewModel(product: product)
@@ -19,7 +20,7 @@ struct ProductListItemView: View {
     var body: some View {
         HStack {
             RemoteImage(urlString: viewModel.imageUrl)
-                .frame(width: 70, height: 70)
+                .frame(width: imageWidth, height: imageWidth)
                 .padding(.trailing)
             
             VStack(alignment: .leading) {

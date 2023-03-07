@@ -16,12 +16,8 @@ struct ProductsListView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .bottomTrailing) {
-                List(viewModel.products, id: \.self) { product in
-                    NavigationLink(destination: detailView(for: product), label: {
-                        ProductListItemView(product: product)
-                    })
-                }
-                .animation(.easeInOut, value: viewModel.products)
+                
+                list
                 
                 refreshButton
             }
@@ -32,6 +28,15 @@ struct ProductsListView: View {
                 }
             }
         }
+    }
+    
+    var list: some View {
+        List(viewModel.products, id: \.self) { product in
+            NavigationLink(destination: detailView(for: product), label: {
+                ProductListItemView(product: product)
+            })
+        }
+        .animation(.easeInOut, value: viewModel.products)
     }
     
     var refreshButton: some View {
