@@ -15,7 +15,7 @@ Clean architecture with 3 layers
 
 ### Outer
 - Views
-- External Dependencies
+- External Dependencies or UI Specific infrastructure
 
 ## Tests 
 
