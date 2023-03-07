@@ -70,6 +70,18 @@ public class RemoteProductsService: FetchProductService {
             .store(in: &subscribers)
     }
     
+    
+}
+
+// MARK: - Endpoints
+extension RemoteProductsService {
+    public var productEndpoint: URL {
+        baseUrl.appendingPathComponent(Endpoint.products.path())
+    }
+}
+
+// MARK: - Cache
+extension RemoteProductsService {
     private func returnCache(for request: URLRequest) -> [Product]? {
         guard let cachedResponse = cache.cachedResponse(for: request) else {
             return nil
@@ -93,12 +105,5 @@ public class RemoteProductsService: FetchProductService {
     
     private static func parseProductsResponse(data: Data) throws -> [Product] {
         try JSONDecoder().decode([Product].self, from: data)
-    }
-}
-
-
-extension RemoteProductsService {
-    public var productEndpoint: URL {
-        baseUrl.appendingPathComponent(Endpoint.products.path())
     }
 }
