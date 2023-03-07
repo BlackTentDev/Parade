@@ -1,5 +1,5 @@
 //
-//  ProductItemViewModel.swift
+//  ProductItemViewModelTests.swift
 //  
 //
 //  Created by Łukasz Szymczuk on 07/03/2023.
