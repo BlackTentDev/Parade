@@ -10,6 +10,7 @@ import PresentationParade
 import CoreParade
 
 struct ProductsListView: View {
+    @Environment(\.scenePhase) var scenePhase
     @ObservedObject var viewModel: ProductsListViewModel
     
     var body: some View {
@@ -25,8 +26,10 @@ struct ProductsListView: View {
                 refreshButton
             }
             .navigationBarTitle(viewModel.title)
-            .onAppear {
-                viewModel.getProducts()
+            .onChange(of: scenePhase) { phase in
+                if phase == .active && viewModel.products.isEmpty {
+                    viewModel.getProducts()
+                }
             }
         }
     }
