@@ -64,15 +64,7 @@ class ProductsListViewModelTests: XCTestCase {
 }
 
 private class FetchProductServiceMock: FetchProductService {
-    private let products: [Product]
-    var action: Action
-    
-    init(products: [Product], action: Action = .success) {
-        self.products = products
-        self.action = action
-    }
-    
-    func fetch(completion: @escaping (Result<[CoreParade.Product], Error>) -> Void) {
+    func fetch(skipCache: Bool, completion: @escaping (Result<[CoreParade.Product], Error>) -> Void) {
         switch action {
         case .success:
             completion(.success(products))
@@ -81,6 +73,14 @@ private class FetchProductServiceMock: FetchProductService {
             completion(.failure(NSError()))
             break
         }
+    }
+    
+    private let products: [Product]
+    var action: Action
+    
+    init(products: [Product], action: Action = .success) {
+        self.products = products
+        self.action = action
     }
     
     enum Action {

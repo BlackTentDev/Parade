@@ -21,7 +21,7 @@ public class ProductsListViewModel: ObservableObject {
     }
     
     public func getProducts() {
-        fetchService.fetch { [weak self] result in
+        fetchService.fetch(skipCache: false) { [weak self] result in
             guard let self = self else {
                 return
             }
@@ -30,9 +30,17 @@ public class ProductsListViewModel: ObservableObject {
         }
     }
     
+    //Skip Cache when refreshing data
     public func refresh() {
-        getProducts()
+        fetchService.fetch(skipCache: true) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
+            self.products = Self.mapFetchProducts(result: result)
+        }
     }
+    
     
     private static func mapFetchProducts(result: FetchProductService.Result) ->  [Product] {
         switch result {

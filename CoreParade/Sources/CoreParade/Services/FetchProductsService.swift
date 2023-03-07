@@ -9,5 +9,5 @@ import Foundation
 
 public protocol FetchProductService {
     typealias Result = Swift.Result<[Product], Swift.Error>
-    func fetch(completion: @escaping (FetchProductService.Result) -> Void)
+    func fetch(skipCache: Bool, completion: @escaping (FetchProductService.Result) -> Void)
 }

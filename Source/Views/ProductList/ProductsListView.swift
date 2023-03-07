@@ -40,9 +40,8 @@ struct ProductsListView_Previews: PreviewProvider {
 
 private class MockPreviewService: FetchProductService {
     private let products = Product.listMock(size: 15)
-    func fetch(completion: @escaping (Result<[CoreParade.Product], Error>) -> Void) {
+    func fetch(skipCache: Bool, completion: @escaping (Result<[CoreParade.Product], Error>) -> Void) {
         completion(.success(products))
     }
-    
     
 }
