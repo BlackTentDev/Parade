@@ -30,25 +30,25 @@ struct ProductDetailView: View {
     }
     
     var image: some View {
-        RemoteImage(urlString: "")
+        RemoteImage(urlString: viewModel.imageUrl)
             .frame(maxWidth: .infinity)
     }
     
     var header: some View {
         HStack {
-            Text("Product")
+            Text(viewModel.name)
                 .font(.title)
             
             Spacer()
             
-            Text("1.23")
+            Text(viewModel.priceString)
                 .font(.body)
         }
         .padding()
     }
     
     var description: some View {
-        Text("Desc")
+        Text(viewModel.description)
             .multilineTextAlignment(.leading)
             .padding()
     }
