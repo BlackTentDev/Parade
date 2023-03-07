@@ -28,7 +28,7 @@ struct ProductsListView: View {
     }
     
     private func detailView(for product: Product) -> some View {
-        ProductDetailView()
+        ProductDetailView(product: product)
     }
 }
 

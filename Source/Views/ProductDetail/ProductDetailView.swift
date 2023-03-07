@@ -6,15 +6,56 @@
 //
 
 import SwiftUI
+import CoreParade
+import PresentationParade
 
 struct ProductDetailView: View {
+    let viewModel: ProductDetailViewModel
+    
+    init(product: Product) {
+        self.viewModel = ProductDetailViewModel(product: product)
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading) {
+            
+            image
+            
+            header
+            
+            description
+            
+            Spacer()
+        }
+    }
+    
+    var image: some View {
+        RemoteImage(urlString: "")
+            .frame(maxWidth: .infinity)
+    }
+    
+    var header: some View {
+        HStack {
+            Text("Product")
+                .font(.title)
+            
+            Spacer()
+            
+            Text("1.23")
+                .font(.body)
+        }
+        .padding()
+    }
+    
+    var description: some View {
+        Text("Desc")
+            .multilineTextAlignment(.leading)
+            .padding()
     }
 }
 
 struct ProductDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductDetailView()
+        ProductDetailView(product: Product.mock(index: 0))
     }
 }
