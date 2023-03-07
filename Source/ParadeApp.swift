@@ -6,12 +6,21 @@
 //
 
 import SwiftUI
+import PresentationParade
 
 @main
 struct ParadeApp: App {
+    let fetchService: RemoteProductsService
+    let productListViewModel: ProductsListViewModel
+    
+    init() {
+        fetchService = RemoteProductsService()
+        productListViewModel = ProductsListViewModel(fetchService: fetchService)
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ProductsListView(viewModel: productListViewModel)
         }
     }
 }

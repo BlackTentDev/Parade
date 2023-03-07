@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ProductsListViewModel.swift
 //  
 //
 //  Created by Łukasz Szymczuk on 06/03/2023.

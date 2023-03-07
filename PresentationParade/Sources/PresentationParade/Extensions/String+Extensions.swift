@@ -26,4 +26,7 @@ public extension String {
         return ""
     }
     
+    static var dummyImageUrl: String {
+        "https://fastly.picsum.photos/id/1001/600/400.jpg?hmac=f1OC0DdGbWCIyD1b1Ey4LSXb311Ahcqqu1j52WyMHBs"
+    }
 }
