@@ -17,6 +17,7 @@
 		B6A9B2FE29B66E120044CDDB /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A9B2FD29B66E120044CDDB /* RemoteImage.swift */; };
 		B6A9B30429B6946D0044CDDB /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A9B30329B6946D0044CDDB /* ImageLoader.swift */; };
 		B6A9B30729B72A0F0044CDDB /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A9B30629B72A0F0044CDDB /* ProductDetailView.swift */; };
+		B6EE585429B77F9A00FB12F8 /* FloatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6EE585329B77F9A00FB12F8 /* FloatingButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		B6A9B2FD29B66E120044CDDB /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		B6A9B30329B6946D0044CDDB /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		B6A9B30629B72A0F0044CDDB /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		B6EE585329B77F9A00FB12F8 /* FloatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				B6A9B2FD29B66E120044CDDB /* RemoteImage.swift */,
+				B6EE585329B77F9A00FB12F8 /* FloatingButton.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 			files = (
 				B67332E829B634BE00FD8234 /* ParadeApp.swift in Sources */,
 				B6A9B30429B6946D0044CDDB /* ImageLoader.swift in Sources */,
+				B6EE585429B77F9A00FB12F8 /* FloatingButton.swift in Sources */,
 				B6A9B2FE29B66E120044CDDB /* RemoteImage.swift in Sources */,
 				B6A9B2F829B66AE00044CDDB /* ProductsListView.swift in Sources */,
 				B6A9B30729B72A0F0044CDDB /* ProductDetailView.swift in Sources */,

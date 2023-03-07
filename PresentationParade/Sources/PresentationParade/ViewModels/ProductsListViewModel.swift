@@ -10,6 +10,7 @@ import CoreParade
 
 public class ProductsListViewModel: ObservableObject {
     @Published public var products: [Product]
+    @Published public var isLoading: Bool = false
     
     public let title: String = "kProducts".localized
     
@@ -21,26 +22,25 @@ public class ProductsListViewModel: ObservableObject {
     }
     
     public func getProducts() {
-        fetchService.fetch(skipCache: false) { [weak self] result in
-            guard let self = self else {
-                return
-            }
-            
-            self.products = Self.mapFetchProducts(result: result)
-        }
+        fetchProducts(skipCache: false)
     }
     
     //Skip Cache when refreshing data
     public func refresh() {
-        fetchService.fetch(skipCache: true) { [weak self] result in
+        fetchProducts(skipCache: true)
+    }
+    
+    private func fetchProducts(skipCache: Bool) {
+        isLoading = true
+        fetchService.fetch(skipCache: skipCache) { [weak self] result in
             guard let self = self else {
                 return
             }
             
+            self.isLoading = false
             self.products = Self.mapFetchProducts(result: result)
         }
     }
-    
     
     private static func mapFetchProducts(result: FetchProductService.Result) ->  [Product] {
         switch result {

@@ -14,17 +14,25 @@ struct ProductsListView: View {
     
     var body: some View {
         NavigationView {
-            List(viewModel.products, id: \.self) { product in
-                NavigationLink(destination: detailView(for: product), label: {
-                    ProductListItemView(product: product)
-                })
+            ZStack(alignment: .bottomTrailing) {
+                List(viewModel.products, id: \.self) { product in
+                    NavigationLink(destination: detailView(for: product), label: {
+                        ProductListItemView(product: product)
+                    })
+                }
+                .animation(.easeInOut, value: viewModel.products)
+                
+                refreshButton
             }
-            .animation(.easeInOut, value: viewModel.products)
             .navigationBarTitle(viewModel.title)
             .onAppear {
                 viewModel.getProducts()
             }
         }
+    }
+    
+    var refreshButton: some View {
+        FloatingButton(onTap: viewModel.refresh, enabled: !viewModel.isLoading)
     }
     
     private func detailView(for product: Product) -> some View {

@@ -46,9 +46,7 @@ public class RemoteProductsService: FetchProductService {
         
         session.dataTaskPublisher(for: request)
             .timeout(.seconds(timeoutInSeconds), scheduler: DispatchQueue.main, options: nil)
-            .sink(receiveCompletion: { subscriberCompletion in
-                debugPrint(subscriberCompletion)
-                
+            .sink(receiveCompletion: { subscriberCompletion in                
                 switch subscriberCompletion {
                     case .finished:
                         break

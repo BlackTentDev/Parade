@@ -12,6 +12,7 @@ import Combine
 
 class ProductsListViewModelTests: XCTestCase {
     let title: String = "kProducts".localized
+    private var subscribers: Set<AnyCancellable> = []
     
     func testTitle_TitleShouldUseLocalizedTitle() {
         let sut = makeSUT()
@@ -56,6 +57,35 @@ class ProductsListViewModelTests: XCTestCase {
         
         XCTAssert(sut.products.count > 0)
     }
+    
+    func testLoading_ShouldSetLoadingFlagOnlyWhenRequestIsOngoing() {
+        let numberOfProducts = 3
+        let fetchService = FetchProductServiceMock(products: Product.listMock(size: numberOfProducts))
+        
+        //Delay fetch request to catch flag
+        fetchService.delay = 0.1
+        let sut = makeSUT(fetchService: fetchService)
+        
+        XCTAssert(sut.isLoading == false)
+
+        sut.getProducts()
+        
+        XCTAssert(sut.isLoading == true)
+    }
+    
+    func testLoading_ShouldResetFlagWhenFinished() {
+        let numberOfProducts = 3
+        let fetchService = FetchProductServiceMock(products: Product.listMock(size: numberOfProducts))
+        
+        let sut = makeSUT(fetchService: fetchService)
+        
+        XCTAssert(sut.isLoading == false)
+
+        sut.getProducts()
+        
+        //Mock service returns fetch immediately so flag should be false
+        XCTAssert(sut.isLoading == false)
+    }
 
     private func makeSUT(fetchService: FetchProductService = FetchProductServiceMock(products: [])) -> ProductsListViewModel {
         ProductsListViewModel(fetchService: fetchService)
@@ -64,15 +94,28 @@ class ProductsListViewModelTests: XCTestCase {
 }
 
 private class FetchProductServiceMock: FetchProductService {
-    func fetch(skipCache: Bool, completion: @escaping (Result<[CoreParade.Product], Error>) -> Void) {
-        switch action {
+    var delay: Double = 0.0
+    func fetch(skipCache: Bool, completion: @escaping (FetchProductService.Result) -> Void) {
+        var result: FetchProductService.Result
+        
+        switch self.action {
         case .success:
-            completion(.success(products))
+            result = .success(products)
             break
         case .fail:
-            completion(.failure(NSError()))
+            result = .failure(NSError())
             break
         }
+        
+        //If there is no delay continue synchronously
+        if delay > 0.0 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+                completion(result)
+            }
+        } else {
+            completion(result)
+        }
+        
     }
     
     private let products: [Product]
