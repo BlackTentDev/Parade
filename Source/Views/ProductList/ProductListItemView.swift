@@ -6,25 +6,25 @@
 //
 
 import SwiftUI
+import PresentationParade
+import CoreParade
 
 struct ProductListItemView: View {
-    let name: String
-    let price: Double
-    let imageUrl: String
+    let viewModel: ProductItemViewModel
     
-    var priceString: String {
-        String(format: "%.2f", price)
+    init(product: Product) {
+        self.viewModel = ProductItemViewModel(product: product)
     }
     
     var body: some View {
         HStack {
-            RemoteImage(urlString: imageUrl)
+            RemoteImage(urlString: viewModel.imageUrl)
                 .frame(width: 70, height: 70)
                 .padding(.trailing)
             
             VStack(alignment: .leading) {
-                Text(name)
-                Text(priceString)
+                Text(viewModel.name)
+                Text(viewModel.priceString)
                     .bold()
                     .font(.callout)
             }
@@ -36,6 +36,6 @@ struct ProductListItemView: View {
 
 struct ProductListItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductListItemView(name: "Product", price: 1.0, imageUrl: String.dummyImageUrl)
+        ProductListItemView(product: Product.mock(index: 0))
     }
 }

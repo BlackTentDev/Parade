@@ -16,7 +16,7 @@ struct ProductsListView: View {
         NavigationView {
             List(viewModel.products, id: \.self) { product in
                 NavigationLink(destination: detailView(for: product), label: {
-                    ProductListItemView(name: product.name, price: product.price, imageUrl: product.imageUrl)
+                    ProductListItemView(product: product)
                 })
             }
             .animation(.easeInOut, value: viewModel.products)
